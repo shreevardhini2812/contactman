@@ -60,6 +60,24 @@ app.put('/contacts/:id', async (req, res) => {
   }
 });
 
+// DELETE a contact by ID
+app.delete('/contacts/:id', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const contact = await Contact.findByIdAndDelete(id);
+
+    if (!contact) {
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+
+    res.json({ message: 'Contact deleted successfully', contact });
+  } catch (err) {
+    console.error('Error deleting contact:', err.message);
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Routes
 app.use("/", contactRoutes);
 
