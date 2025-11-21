@@ -15,6 +15,27 @@ app.use(express.json());
 // DB
 connectDB();
 
+// POST new contact
+app.post('/contacts', async (req, res) => {
+  try {
+    const contact = new Contact(req.body);
+    await contact.save();
+    res.status(201).json(contact);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// GET all contacts
+app.get('/contacts', async (req, res) => {
+  try {
+    const contacts = await Contact.find();
+    res.json(contacts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Routes
 app.use("/", contactRoutes);
 
