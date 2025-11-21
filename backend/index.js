@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./db.js";
 import contactRoutes from "./routes/contactRoutes.js";
+import Contact from "./models/Contact.js";
 
 dotenv.config();
 
