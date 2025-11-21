@@ -37,6 +37,29 @@ app.get('/contacts', async (req, res) => {
   }
 });
 
+// Update a contact by ID
+app.put('/contacts/:id', async (req, res) => {
+  const { id } = req.params;
+  const { name, email, phone } = req.body;
+
+  try {
+    const contact = await Contact.findByIdAndUpdate(
+      id,
+      { name, email, phone },
+      { new: true } // return updated document
+    );
+
+    if (!contact) {
+      return res.status(404).json({ message: 'Contact not found' });
+    }
+
+    res.json(contact);
+  } catch (err) {
+    console.error('Error updating contact:', err.message);
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Routes
 app.use("/", contactRoutes);
 
