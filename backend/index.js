@@ -7,7 +7,9 @@ import contactRoutes from "./routes/contactRoutes.js";
 dotenv.config();
 
 const app = express();
-app.use(cors());
+app.use(cors({
+    origin: 'https://neon-torte-02c367.netlify.app'
+}));
 app.use(express.json());
 
 // DB
